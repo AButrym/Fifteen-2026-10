@@ -22,6 +22,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.myapplication.engine.CrossNoughtCell
 import com.example.myapplication.engine.Field
 import com.example.myapplication.engine.Fifteen
 import com.example.myapplication.engine.Fifteen.Companion.EMPTY_CELL
@@ -45,11 +46,6 @@ class MainActivity : ComponentActivity() {
 }
 
 
-enum class CrossNoughtCell {
-    CROSS, NOUGHT, EMPTY
-}
-
-typealias CrossNoughtBoard = List<CrossNoughtCell>
 
 @Composable
 fun CellCrossNought(cell: CrossNoughtCell) {
