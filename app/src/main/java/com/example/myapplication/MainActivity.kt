@@ -22,6 +22,9 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.myapplication.engine.Field
+import com.example.myapplication.engine.Fifteen
+import com.example.myapplication.engine.Fifteen.Companion.EMPTY_CELL
 import com.example.myapplication.ui.theme.MyApplicationTheme
 
 class MainActivity : ComponentActivity() {
@@ -30,15 +33,17 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MyApplicationTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { _ ->
-
+                Scaffold(modifier = Modifier.fillMaxSize()) { padding ->
+                    Grid(
+                        Fifteen.solvedField,
+                        modifier = Modifier.padding(padding)
+                    )
                 }
             }
         }
     }
 }
 
-private const val EMPTY_CELL = 16
 
 enum class CrossNoughtCell {
     CROSS, NOUGHT, EMPTY
@@ -87,14 +92,16 @@ fun Cell(n: Int) {
     }
 }
 
-typealias Field = List<Int>
+
 
 @Composable
-fun Grid(field: Field) {
+fun Grid(field: Field,
+         modifier: Modifier = Modifier
+) {
     var i = 0
 
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
