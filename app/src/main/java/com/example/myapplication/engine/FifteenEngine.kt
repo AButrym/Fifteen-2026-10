@@ -38,7 +38,7 @@ class FifteenImpl : Fifteen {
         val moveIndex = field.indexOf(move)
         if (moveIndex == -1) return field
         val (row1, col1) = ixToRowCol(emptyIndex)
-        val (row2, col2) = Coordinates(field.indexOf(move))
+        val (row2, col2) = Coordinates(moveIndex)
         if (row1 == row2 && abs(col1 - col2) == 1 ||
             col1 == col2 && abs(row1 - row2) == 1
         ) {
