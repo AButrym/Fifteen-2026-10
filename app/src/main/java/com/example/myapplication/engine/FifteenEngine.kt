@@ -35,14 +35,16 @@ class FifteenImpl : Fifteen {
 
     override fun update(field: Field, move: Int): Field {
         val emptyIndex = field.indexOf(EMPTY_CELL)
+        val moveIndex = field.indexOf(move)
+        if (moveIndex == -1) return field
         val (row1, col1) = ixToRowCol(emptyIndex)
-        val (row2, col2) = Coordinates(move)
+        val (row2, col2) = Coordinates(field.indexOf(move))
         if (row1 == row2 && abs(col1 - col2) == 1 ||
             col1 == col2 && abs(row1 - row2) == 1
         ) {
             val res = field.toMutableList()
-            res[emptyIndex] = field[move]
-            res[move] = EMPTY_CELL
+            res[emptyIndex] = move
+            res[moveIndex] = EMPTY_CELL
             return res.toList()
         }
         return field
