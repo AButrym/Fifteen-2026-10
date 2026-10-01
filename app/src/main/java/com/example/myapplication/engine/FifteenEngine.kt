@@ -51,7 +51,8 @@ class FifteenImpl : Fifteen {
     }
 
     fun ixToRowCol(ix: Int) = ix / DIM to ix % DIM
-
+    // an alternative to demonstrate Kotlin's data classes
+    // and secondary constructors
     private data class Coordinates(val row: Int, val col: Int) {
         constructor(ix: Int) : this(row = ix / DIM, col = ix % DIM)
     }
@@ -59,20 +60,16 @@ class FifteenImpl : Fifteen {
     internal fun isSolvable(field: Field): Boolean {
         var inversions = 0
         for (i in field.indices) {
-            if (field[i] == EMPTY_CELL) {
-                continue
-            }
+            if (field[i] == EMPTY_CELL) continue
             for (j in i + 1 until field.size) {
-                if (field[j] == EMPTY_CELL) {
-                    continue
-                }
+                if (field[j] == EMPTY_CELL) continue
                 if (field[i] > field[j]) {
                     inversions++
                 }
             }
         }
         val emptyIndex = field.indexOf(EMPTY_CELL)
-        val row = emptyIndex / DIM
+        val (row, _) = ixToRowCol(emptyIndex)
         return (inversions + row) % 2 != 0
     }
 }
