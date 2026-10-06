@@ -6,6 +6,8 @@ import kotlin.math.abs
 
 typealias Field = List<Int>
 
+operator fun Field.get(row: Int, col: Int) = this[row * DIM + col]
+
 
 interface Fifteen {
     fun randomSolvableField(): Field
