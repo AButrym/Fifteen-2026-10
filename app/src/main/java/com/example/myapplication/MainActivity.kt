@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import com.example.myapplication.engine.Fifteen
+import com.example.myapplication.fifteen.FifteenScreen
 import com.example.myapplication.fifteen.components.Grid
 import com.example.myapplication.ui.theme.MyApplicationTheme
 
@@ -19,8 +20,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyApplicationTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { padding ->
-                    Grid(
-                        Fifteen.solvedField,
+                    FifteenScreen(
                         modifier = Modifier.padding(padding)
                     )
                 }
