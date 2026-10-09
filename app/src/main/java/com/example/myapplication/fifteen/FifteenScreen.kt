@@ -1,12 +1,22 @@
 package com.example.myapplication.fifteen
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.offset
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.BiasAlignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.fifteen.components.Grid
+import com.example.myapplication.fifteen.components.MoveCounter
 import com.example.myapplication.ui.theme.MyApplicationTheme
 
 @Composable
@@ -14,8 +24,19 @@ fun FifteenScreen(
     modifier: Modifier = Modifier,
     vm: FifteenViewModel = viewModel()
 ) {
+    val counter by vm.moves.collectAsStateWithLifecycle()
     val field by vm.field.collectAsStateWithLifecycle()
-    Grid(field, modifier) { move -> vm.onTileClick(move) }
+    Box {
+        Grid(field, modifier) { move ->
+            vm.onTileClick(move)
+        }
+        MoveCounter(
+            counter,
+            modifier=Modifier
+                .align(BiasAlignment(0f, 0.8f))
+                .offset(y = (-20).dp)
+        )
+    }
 }
 
 @Preview(

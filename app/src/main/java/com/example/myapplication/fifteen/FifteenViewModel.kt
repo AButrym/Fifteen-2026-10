@@ -9,10 +9,19 @@ import kotlinx.coroutines.flow.update
 
 class FifteenViewModel : ViewModel() {
     private val fifteen = FifteenImpl()
+
     val field: StateFlow<Field>
         field = MutableStateFlow(fifteen.randomSolvableField())
 
+    val moves: StateFlow<Int>
+        field = MutableStateFlow(0)
+
     fun onTileClick(tile: Int) {
-        field.update { fifteen.update(it, tile) }
+        field.update {
+            val old = it
+            val newValue = fifteen.update(it, tile)
+            if (newValue != old) moves.update { it1 -> it1 + 1 }
+            newValue
+        }
     }
 }
