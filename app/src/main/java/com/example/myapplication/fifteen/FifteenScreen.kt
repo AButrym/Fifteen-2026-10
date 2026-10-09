@@ -1,7 +1,10 @@
 package com.example.myapplication.fifteen
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -11,10 +14,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.BiasAlignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.myapplication.R
 import com.example.myapplication.fifteen.components.Grid
 import com.example.myapplication.fifteen.components.MoveCounter
 import com.example.myapplication.ui.theme.MyApplicationTheme
@@ -22,6 +27,7 @@ import com.example.myapplication.ui.theme.MyApplicationTheme
 @Composable
 fun FifteenScreen(
     modifier: Modifier = Modifier,
+    onBackClick: () -> Unit = {},
     vm: FifteenViewModel = viewModel()
 ) {
     val state by vm.state.collectAsStateWithLifecycle()
@@ -35,6 +41,18 @@ fun FifteenScreen(
                 .align(BiasAlignment(0f, 0.8f))
                 .offset(y = (-20).dp)
         )
+        if (vm.isSolved) {
+            Text(
+                "Congratulations!",
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .size(80.dp)
+            )
+        }
+        Button(onClick = onBackClick,
+            modifier = Modifier.align(Alignment.BottomCenter)) {
+            Text(stringResource(R.string.back_to_menu))
+        }
     }
 }
 

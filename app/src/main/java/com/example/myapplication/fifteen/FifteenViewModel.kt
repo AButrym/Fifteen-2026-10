@@ -19,6 +19,9 @@ class FifteenViewModel : ViewModel() {
             moves=0)
         )
 
+    val isSolved: Boolean
+        get() = fifteen.isSolved(state.value.field)
+
     fun onTileClick(tile: Int) {
         state.update { oldState ->
             val (field, moves) = oldState

@@ -7,7 +7,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import com.example.myapplication.engine.Fifteen
 import com.example.myapplication.fifteen.FifteenScreen
 import com.example.myapplication.fifteen.components.Grid
@@ -20,11 +22,19 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyApplicationTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { padding ->
-                    FifteenScreen(
+                    NavigationHost(
                         modifier = Modifier.padding(padding)
                     )
                 }
             }
         }
+    }
+}
+
+@Preview(locale = "uk")
+@Composable
+fun AppPreview() {
+    MyApplicationTheme {
+        NavigationHost()
     }
 }
