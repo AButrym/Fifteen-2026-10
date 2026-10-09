@@ -24,14 +24,13 @@ fun FifteenScreen(
     modifier: Modifier = Modifier,
     vm: FifteenViewModel = viewModel()
 ) {
-    val counter by vm.moves.collectAsStateWithLifecycle()
-    val field by vm.field.collectAsStateWithLifecycle()
+    val state by vm.state.collectAsStateWithLifecycle()
     Box {
-        Grid(field, modifier) { move ->
+        Grid(state.field, modifier) { move ->
             vm.onTileClick(move)
         }
         MoveCounter(
-            counter,
+            state.moves,
             modifier=Modifier
                 .align(BiasAlignment(0f, 0.8f))
                 .offset(y = (-20).dp)

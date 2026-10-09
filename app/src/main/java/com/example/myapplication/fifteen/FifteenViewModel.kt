@@ -7,21 +7,24 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 
+
+data class FifteenState(val field: Field, val moves: Int)
+
 class FifteenViewModel : ViewModel() {
     private val fifteen = FifteenImpl()
 
-    val field: StateFlow<Field>
-        field = MutableStateFlow(fifteen.randomSolvableField())
-
-    val moves: StateFlow<Int>
-        field = MutableStateFlow(0)
+    val state: StateFlow<FifteenState>
+        field = MutableStateFlow(FifteenState(
+            field=fifteen.randomSolvableField(),
+            moves=0)
+        )
 
     fun onTileClick(tile: Int) {
-        field.update {
-            val old = it
-            val newValue = fifteen.update(it, tile)
-            if (newValue != old) moves.update { it1 -> it1 + 1 }
-            newValue
+        state.update { oldState ->
+            val (field, moves) = oldState
+            val newField = fifteen.update(field, tile)
+            if (newField == field) oldState
+            else oldState.copy(field = newField, moves = moves + 1)
         }
     }
 }
